@@ -1,9 +1,7 @@
 //Romans_Prokopjevs_201RDB381
 
-#include <chrono>
 #include <iostream>
 #include <sstream>
-#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -123,5 +121,4 @@ int main() {
             std::cout << "Hmm something went wrong!\n";
         }
     }
-    return 0;
 }

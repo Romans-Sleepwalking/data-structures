@@ -1,7 +1,6 @@
 //Romans_Prokopjevs_201RDB381
 
 #include <iostream>
-#include <string>
 
 
 int collatz_conjecture(int num, int steps = 0) {
@@ -22,22 +21,21 @@ int collatz_conjecture(int num, int steps = 0) {
 
 int main() {
     /* Collatz Conjecture. */
-    int num = 0;
+    int seed = 0;
     while (true) {
         try {
-            // Ask the user to prompt their date of birth
+            // Ask the user to prompt their number
             std::cout << "Hello, please enter your positive integer (e.g., 871): ";
-            std::cin >> num;
+            std::cin >> seed;
             // If number is positive integer then throw invalid input error
-            if (num <= 0) {
+            if (seed <= 0) {
                 throw;
             }
             // Recursive function
-            collatz_conjecture(num);
+            collatz_conjecture(seed);
         }
         catch (...) {
-            std::cout << "Invalid input: " << num << '\n';
+            std::cout << "Invalid input: " << seed << '\n';
         }
     }
-    return 0;
 }
