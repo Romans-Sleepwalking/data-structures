@@ -16,7 +16,7 @@ queue<string> shuntingYard(string expression) {
     stack<string> operatorStack;
     queue<string> resQueue;
     // Parse the input string into result queue
-    char numBuffer[20];
+    char numBuffer[42];
     int numI = 0;
     string num;
     for (char token : expression) {
@@ -75,7 +75,6 @@ queue<string> shuntingYard(string expression) {
     // Convert last buffer
     if (numI > 0) {
         numBuffer[numI] = '\0';
-        numI = 0;
         num = string(numBuffer);
         // Catch division by zero
         if (!operatorStack.empty() && num == "0"){
