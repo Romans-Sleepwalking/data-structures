@@ -1,5 +1,6 @@
 //Romans_Prokopjevs_201RDB381
 
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <stack>
@@ -83,8 +84,8 @@ queue<string> shuntingYard(string expression) {
         }
         else if (token == ')') {
             while (true){
-                if (!operatorStack.empty()){
-                    throw invalid_argument("Extra parenthesis!");
+                if (operatorStack.empty()){
+                    throw invalid_argument("Extra closed parenthesis!");
                 }
                 else if (operatorStack.top() == "("){
                     // Parentheses closed
@@ -118,7 +119,7 @@ queue<string> shuntingYard(string expression) {
     // Move all operands left from the stack into the queue
     while (!operatorStack.empty()) {
         if (operatorStack.top() == "(") {
-            throw invalid_argument("Extra parenthesis!");
+            throw invalid_argument("Extra open parenthesis!");
         }
         resQueue.push(operatorStack.top());
         operatorStack.pop();
@@ -158,27 +159,32 @@ float computePostfix(queue<string>& tokens) {
 
 
 int main() {
-    /* Arithmetic Parser. */
+    /* Arithmetic File Parser. */
     float res;
-    while (true) {
-        try {
-            // Ask the user to prompt their statement to be calculated
-            string expression;
-            cout << "Please enter an arithmetic expression: ";
-            getline(cin, expression);
-            // Translate given expression from infix to postfix
-            queue<string> postfixQueue = shuntingYard(expression);
-            if (postfixQueue.empty()){
-                cout << "nan\n"; break;
-            }
-            // Compute the postfix expression
-            res = computePostfix(postfixQueue);
-            cout << "Answer: " << res << '\n';
+    // Open the file
+    ifstream file("sequence_with_parenthesis.txt");
+    if (!file.is_open()) {
+        cerr << "Failed to open the file." << std::endl;
+        return 1;
+    }
+    // Read the first line
+    string expression;
+    getline(file, expression);
+    std::cout << "Expression: " << expression << '\n';
+    file.close();
+    //
+    try {
+        // Translate given expression from infix to postfix
+        queue<string> postfixQueue = shuntingYard(expression);
+        if (postfixQueue.empty()){
+            cout << "nan\n";
         }
-        catch (const invalid_argument& e) {
-            cerr << "Expression error: " << e.what() << '\n';
-            continue;
-        }
+        // Compute the postfix expression
+        res = computePostfix(postfixQueue);
+        cout << "Answer: " << res << '\n';
+    }
+    catch (const invalid_argument& e) {
+        cerr << "Expression error: " << e.what() << '\n';
     }
     return 0;
 }
