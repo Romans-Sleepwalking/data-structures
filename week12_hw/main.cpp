@@ -1,17 +1,14 @@
 //Romans_Prokopjevs_201RDB381
 
-#include <algorithm>
 #include <fstream>
 #include <iostream>
-#include <stack>
-#include <stdexcept>
-#include <string>
+#include <vector>
 
 
 using namespace std;
 
 
-// Gamble. Collisions are expected :)
+// Gamble
 const int HASHMAP_SIZE = 700;
 
 
@@ -24,7 +21,7 @@ struct HashMap {
     HashMap() { table.resize(HASHMAP_SIZE); };
 
     unsigned int hash(int key) {
-        /* Modulo has functioт. */
+        /* Modulo function. */
         return key % HASHMAP_SIZE;
     };
 
@@ -70,12 +67,13 @@ int main(int argc, char *argv[]) {
     /* Two Sum. */
     int target;
     vector<int> nums;
-    // Read target and nums
+    // Read file
     ifstream file("two_sum_target_n_data.txt");
     if (!file.is_open()) {
         cerr << "Error opening the input file!\n";
         return 1;
     }
+    // Parse target and nums
     string line;
     int rownum = 0;
     while (getline(file, line)) {
@@ -87,7 +85,7 @@ int main(int argc, char *argv[]) {
         rownum++;
     }
     file.close();
-    // Find the indices of the two numbers that sum up to the target
+    // Find indices of two numbers that sum up to the target
     pair<int, int> result = twoSumHashMap(target, nums);
     cout << "Answer: " << result.first << " and " << result.second << '\n';
     return 0;

@@ -51,7 +51,7 @@ struct SymbolFreq {
 
 
 bool compareByCount(const SymbolFreq& a, const SymbolFreq& b) {
-    /* Pick higher frequency for descending sorting. */
+    /* Pick a higher frequency for descending sorting. */
     return a.count > b.count;
 }
 
@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
         if (input.cmdOptionExists("-o")){
             outputFilename = input.getCmdOption("-o");
         }
-        // Do lowercase?
+        // Lowercase option
         if (input.cmdOptionExists("-l")){
             convertLowercase = true;
         }
